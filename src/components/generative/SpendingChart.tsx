@@ -1,6 +1,7 @@
+// components/generative/SpendingChart.tsx
+
 'use client';
 
-// components/generative/SpendingChart.tsx (FIXED with proper TypeScript types)
 
 import React from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -83,7 +84,8 @@ export default function SpendingChart({
   };
 
   // Custom tooltip formatter with proper types
-  const formatTooltipValue = (value: number | string | Array<number | string>) => {
+  const formatTooltipValue = (value: number | string | Array<number | string> | undefined) => {
+    if (value === undefined) return '';
     if (typeof value === 'number') {
       return `$${value.toFixed(2)}`;
     }
@@ -175,7 +177,7 @@ export default function SpendingChart({
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-800 truncate">{item.category}</p>
               <p className="text-xs text-gray-500">
-                ${item.amount.toFixed(2)} ({item.percentage?.toFixed(1) || ((item.amount / total) * 100).toFixed(1)}%)
+                ${item.amount?.toFixed(2)} ({item.percentage?.toFixed(1) || ((item.amount / total) * 100).toFixed(1)}%)
               </p>
             </div>
           </div>

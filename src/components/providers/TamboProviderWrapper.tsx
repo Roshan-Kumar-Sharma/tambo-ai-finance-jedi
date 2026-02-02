@@ -1,14 +1,21 @@
 'use client';
 
-// components/providers/TamboProviderWrapper.tsx
-
 import { TamboProvider, type TamboComponent } from '@tambo-ai/react';
 import SpendingChart from '@/components/generative/SpendingChart';
-import { SpendingChartPropsSchema } from '@/lib/schemas/componentSchemas';
+import BudgetSummary from '@/components/generative/BudgetSummary';
+import SavingsProjection from '@/components/generative/SavingsProjection';
+import SpendingInsights from '@/components/generative/SpendingInsights';
+import MonthlyTrend from '@/components/generative/MonthlyTrend';
+import { 
+  SpendingChartPropsSchema,
+  BudgetSummaryPropsSchema,
+  SavingsProjectionPropsSchema,
+  SpendingInsightsPropsSchema,
+  MonthlyTrendPropsSchema,
+} from '@/lib/schemas/componentSchemas';
 import { financialTools } from '@/lib/tools/financialTools';
 import React from 'react';
 
-// Register Tambo components - THIS MUST BE IN A CLIENT COMPONENT
 const tamboComponents: TamboComponent[] = [
   {
     name: 'SpendingChart',
@@ -16,8 +23,30 @@ const tamboComponents: TamboComponent[] = [
     component: SpendingChart,
     propsSchema: SpendingChartPropsSchema,
   },
-  // Phase 2 will add: BudgetSummary, SavingsProjection, SpendingInsights, MonthlyTrend
-  // Phase 3 will add: BudgetPlanner, BillTracker, GoalsBoard (Interactable)
+  {
+    name: 'BudgetSummary',
+    description: 'Shows overall financial health with income, expenses, savings, savings rate, and top spending category. Use when user asks for financial summary, overview, or health check. ALWAYS call getFinancialSummary tool first.',
+    component: BudgetSummary,
+    propsSchema: BudgetSummaryPropsSchema,
+  },
+  {
+    name: 'SavingsProjection',
+    description: 'Projects future savings based on current savings and monthly contribution. Shows line chart with optional target goal. Use when user asks about savings goals, projections, or future savings. ALWAYS call getMonthlyTrends tool first to calculate projection.',
+    component: SavingsProjection,
+    propsSchema: SavingsProjectionPropsSchema,
+  },
+  {
+    name: 'SpendingInsights',
+    description: 'Displays AI-generated insights about spending patterns with warnings, tips, success messages, or info. Use when user asks for advice, insights, recommendations, or analysis of their spending.',
+    component: SpendingInsights,
+    propsSchema: SpendingInsightsPropsSchema,
+  },
+  {
+    name: 'MonthlyTrend',
+    description: 'Shows income, expenses, and savings trends over multiple months as a line chart. Use when user asks about trends, history, monthly comparison, or how their finances changed over time. ALWAYS call getMonthlyTrends tool first.',
+    component: MonthlyTrend,
+    propsSchema: MonthlyTrendPropsSchema,
+  },
 ];
 
 interface TamboProviderWrapperProps {

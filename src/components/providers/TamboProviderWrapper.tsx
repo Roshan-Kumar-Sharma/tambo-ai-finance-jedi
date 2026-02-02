@@ -6,12 +6,18 @@ import BudgetSummary from '@/components/generative/BudgetSummary';
 import SavingsProjection from '@/components/generative/SavingsProjection';
 import SpendingInsights from '@/components/generative/SpendingInsights';
 import MonthlyTrend from '@/components/generative/MonthlyTrend';
+import BudgetPlanner from '@/components/generative/BudgetPlanner';
+import BillTracker from '@/components/generative/BillTracker';
+import GoalsBoard from '@/components/generative/GoalsBoard';
 import { 
   SpendingChartPropsSchema,
   BudgetSummaryPropsSchema,
   SavingsProjectionPropsSchema,
   SpendingInsightsPropsSchema,
   MonthlyTrendPropsSchema,
+  BudgetPlannerPropsSchema,
+  BillTrackerPropsSchema,
+  GoalsBoardPropsSchema,
 } from '@/lib/schemas/componentSchemas';
 import { financialTools } from '@/lib/tools/financialTools';
 import React from 'react';
@@ -46,6 +52,24 @@ const tamboComponents: TamboComponent[] = [
     description: 'Shows income, expenses, and savings trends over multiple months as a line chart. Use when user asks about trends, history, monthly comparison, or how their finances changed over time. ALWAYS call getMonthlyTrends tool first.',
     component: MonthlyTrend,
     propsSchema: MonthlyTrendPropsSchema,
+  },
+  {
+    name: 'BudgetPlanner',
+    description: 'Interactive budget planning tool where users can adjust budget allocations for different categories. Shows current spending, allocated amounts, and remaining budget with progress bars. Use when user wants to plan or adjust their budget. ALWAYS call getBudgets tool first.',
+    component: BudgetPlanner,
+    propsSchema: BudgetPlannerPropsSchema,
+  },
+  {
+    name: 'BillTracker',
+    description: 'Track and manage upcoming bills and payments. Users can mark bills as paid/unpaid. Shows overdue bills, due dates, and total amount due. Use when user asks about bills, payments, or what they need to pay. ALWAYS call getUpcomingBills tool first.',
+    component: BillTracker,
+    propsSchema: BillTrackerPropsSchema,
+  },
+  {
+    name: 'GoalsBoard',
+    description: 'Track progress toward financial goals. Users can update their current savings amount for each goal. Shows progress bars, target amounts, and deadlines. Use when user asks about goals, savings targets, or financial objectives. ALWAYS call getFinancialGoals tool first.',
+    component: GoalsBoard,
+    propsSchema: GoalsBoardPropsSchema,
   },
 ];
 

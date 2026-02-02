@@ -91,7 +91,7 @@ export default function SpendingInsights({
                 </p>
                 {insight.amount !== undefined && (
                   <p className={`text-sm font-bold mt-1 ${getTextColor(insight.type)}`}>
-                    ${insight.amount.toFixed(2)}
+                    ${insight.amount?.toFixed(2)}
                   </p>
                 )}
               </div>

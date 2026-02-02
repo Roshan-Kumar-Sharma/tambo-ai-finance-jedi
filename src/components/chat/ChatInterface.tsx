@@ -1,15 +1,17 @@
+// components/chat/ChatInterface.tsx - FINAL FIXED VERSION
 'use client';
 
-// components/chat/ChatInterface.tsx
-
 import React from 'react';
-import { useTamboThread, useTamboThreadInput, useTamboStreamStatus } from '@tambo-ai/react';
-import { Send, Sparkles } from 'lucide-react';
+import { useTamboThread, useTamboThreadInput } from '@tambo-ai/react';
+import { Send, Sparkles, Home, Menu, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function ChatInterface() {
   const { thread } = useTamboThread();
   const { value, setValue, submit, isPending } = useTamboThreadInput();
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const router = useRouter();
 
   // Auto-scroll to bottom when new messages arrive
   React.useEffect(() => {
@@ -31,21 +33,75 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex flex-col">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-white" />
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-blue-500/20">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
+                  FinanceJedi
+                </h1>
+                <p className="text-xs text-gray-400">Your Financial Force Companion</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                FinanceJedi
-              </h1>
-              <p className="text-sm text-gray-600">Your Personal Financial Force Companion</p>
-            </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-4">
+              <button
+                onClick={() => router.push('/')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
+              >
+                <Home className="w-4 h-4" />
+                <span>Home</span>
+              </button>
+              <a
+                href="https://github.com/tambo-ai/tambo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/30 transition-colors"
+              >
+                GitHub
+              </a>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-slate-800/50 text-gray-300"
+            >
+              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
+
+          {/* Mobile Menu */}
+          {menuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-slate-700/50 pt-4">
+              <button
+                onClick={() => {
+                  router.push('/');
+                  setMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors w-full mb-2"
+              >
+                <Home className="w-4 h-4" />
+                <span>Home</span>
+              </button>
+              <a
+                href="https://github.com/tambo-ai/tambo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center px-4 py-2 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/30 transition-colors"
+              >
+                GitHub
+              </a>
+            </div>
+          )}
         </div>
       </header>
 
@@ -55,28 +111,28 @@ export default function ChatInterface() {
           {/* Welcome Message */}
           {thread.messages.length === 0 && (
             <div className="text-center py-12">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Sparkles className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Sparkles className="w-10 h-10 text-white animate-pulse" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              <h2 className="text-2xl font-bold text-white mb-2">
                 Welcome to FinanceJedi! 🚀
               </h2>
-              <p className="text-gray-600 mb-6 max-w-md mx-auto">
+              <p className="text-gray-300 mb-6 max-w-md mx-auto">
                 May the financial force be with you. Ask me anything about your finances!
               </p>
               
               {/* Suggestion Pills */}
               <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
                 {[
-                  'Show me my spending breakdown',
-                  'Where am I spending the most?',
-                  'How much did I save this month?',
-                  'What are my upcoming bills?',
+                  'Show me my spending breakdown 📊',
+                  'How can I improve my savings? 💰',
+                  'Track my bills and payments 📅',
+                  'Project my savings for 6 months 🎯',
                 ].map((suggestion, index) => (
                   <button
                     key={index}
                     onClick={() => setValue(suggestion)}
-                    className="px-4 py-2 bg-white hover:bg-purple-50 text-purple-700 rounded-full text-sm font-medium border border-purple-200 transition-colors"
+                    className="px-4 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-blue-300 rounded-full text-sm font-medium border border-slate-700/50 hover:border-blue-500/30 transition-all duration-200"
                   >
                     {suggestion}
                   </button>
@@ -94,21 +150,21 @@ export default function ChatInterface() {
               <div
                 className={`max-w-3xl ${
                   message.role === 'user'
-                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                    : 'bg-white border border-gray-200'
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+                    : 'bg-slate-900/50 backdrop-blur-sm border border-slate-700/50'
                 } rounded-2xl px-5 py-3 shadow-sm`}
               >
                 {/* Text Content */}
                 {Array.isArray(message.content) ? (
                   message.content.map((part, i) =>
                     part.type === 'text' ? (
-                      <p key={i} className={`text-sm leading-relaxed ${message.role === 'user' ? 'text-white' : 'text-gray-800'}`}>
+                      <p key={i} className={`text-sm leading-relaxed ${message.role === 'user' ? 'text-white' : 'text-gray-200'}`}>
                         {part.text}
                       </p>
                     ) : null
                   )
                 ) : (
-                  <p className={`text-sm leading-relaxed ${message.role === 'user' ? 'text-white' : 'text-gray-800'}`}>
+                  <p className={`text-sm leading-relaxed ${message.role === 'user' ? 'text-white' : 'text-gray-200'}`}>
                     {String(message.content)}
                   </p>
                 )}
@@ -126,14 +182,14 @@ export default function ChatInterface() {
           {/* Loading Indicator */}
           {isPending && (
             <div className="flex justify-start">
-              <div className="bg-white border border-gray-200 rounded-2xl px-5 py-3 shadow-sm">
+              <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl px-5 py-3 shadow-sm">
                 <div className="flex items-center space-x-2">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-purple-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                   </div>
-                  <span className="text-sm text-gray-600">Analyzing your finances...</span>
+                  <span className="text-sm text-gray-300">Analyzing your finances...</span>
                 </div>
               </div>
             </div>
@@ -144,7 +200,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Input Area */}
-      <div className="bg-white border-t border-gray-200 shadow-lg">
+      <div className="border-t border-blue-500/20 bg-slate-900/50 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <form onSubmit={handleSubmit} className="flex items-end space-x-3">
             <div className="flex-1">
@@ -152,25 +208,33 @@ export default function ChatInterface() {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about your finances... (e.g., 'Show me my spending')"
+                placeholder="Ask the Force for financial wisdom..."
                 disabled={isPending}
                 rows={1}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ minHeight: '52px', maxHeight: '120px' }}
               />
             </div>
             <button
               type="submit"
               disabled={isPending || !value.trim()}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2 shadow-md hover:shadow-lg"
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2 shadow-md hover:shadow-lg"
             >
               <Send className="w-5 h-5" />
               <span className="font-medium">Send</span>
             </button>
           </form>
           
-          <p className="text-xs text-gray-500 text-center mt-2">
-            Press Enter to send, Shift+Enter for new line
+          <p className="text-xs text-gray-500 text-center mt-3">
+            Powered by{' '}
+            <a
+              href="https://tambo.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300"
+            >
+              Tambo Generative UI
+            </a>
           </p>
         </div>
       </div>

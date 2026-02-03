@@ -1,9 +1,9 @@
-// components/chat/ChatInterface.tsx - FINAL FIXED VERSION
+// components/chat/ChatInterface.tsx - Updated with R2-D2 Agent Navigation
 'use client';
 
 import React from 'react';
 import { useTamboThread, useTamboThreadInput } from '@tambo-ai/react';
-import { Send, Sparkles, Home, Menu, X } from 'lucide-react';
+import { Send, Sparkles, Home, Menu, X, Bot } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function ChatInterface() {
@@ -60,6 +60,13 @@ export default function ChatInterface() {
                 <Home className="w-4 h-4" />
                 <span>Home</span>
               </button>
+              <button
+                onClick={() => router.push('/agent')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors group"
+              >
+                <Bot className="w-4 h-4 text-blue-400 group-hover:text-blue-300" />
+                <span>R2-D2 Agent</span>
+              </button>
               <a
                 href="https://github.com/tambo-ai/tambo"
                 target="_blank"
@@ -91,6 +98,16 @@ export default function ChatInterface() {
               >
                 <Home className="w-4 h-4" />
                 <span>Home</span>
+              </button>
+              <button
+                onClick={() => {
+                  router.push('/agent');
+                  setMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors w-full mb-2"
+              >
+                <Bot className="w-4 h-4 text-blue-400" />
+                <span>R2-D2 Agent</span>
               </button>
               <a
                 href="https://github.com/tambo-ai/tambo"

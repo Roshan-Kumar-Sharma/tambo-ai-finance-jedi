@@ -1,6 +1,6 @@
-// lib/data/mockData.ts
+// lib/data/mockData.ts - Complete version with Agent data
 
-import { Transaction, CategorySpending, MonthlyData, Budget, Bill, FinancialGoal, FinancialSummary } from '@/types/finance';
+import { Transaction, CategorySpending, MonthlyData, Budget, Bill, FinancialGoal, FinancialSummary, AgentAction, AgentRule } from '@/types/finance';
 
 // Category colors for consistent theming
 export const categoryColors: Record<string, string> = {
@@ -236,6 +236,128 @@ export const mockFinancialSummary: FinancialSummary = {
   savingsRate: 7.1,
   topSpendingCategory: 'Housing',
 };
+
+// Autonomous Agent Actions
+export const mockAgentActions: AgentAction[] = [
+  {
+    id: 'a1',
+    type: 'transfer',
+    status: 'pending',
+    description: 'Transfer $100 from Checking to Savings',
+    reasoning: 'Detected potential overdraft risk based on upcoming bills. Moving funds to prevent fees.',
+    requiresApproval: true,
+    confidence: 85,
+    amount: 100,
+    sourceAccount: 'Checking',
+    targetAccount: 'Savings',
+    createdAt: new Date('2025-02-03T10:30:00'),
+  },
+  {
+    id: 'a2',
+    type: 'subscription_cancel',
+    status: 'pending',
+    description: 'Cancel unused Spotify Premium subscription',
+    reasoning: 'No usage detected in the last 45 days. Potential savings: $10.99/month.',
+    requiresApproval: true,
+    confidence: 92,
+    amount: 10.99,
+    category: 'Entertainment',
+    createdAt: new Date('2025-02-03T09:15:00'),
+  },
+  {
+    id: 'a3',
+    type: 'payment',
+    status: 'executed',
+    description: 'Auto-paid Internet bill',
+    reasoning: 'Bill under $100 threshold and 3 days before due date per user rules.',
+    requiresApproval: false,
+    confidence: 100,
+    amount: 65,
+    billId: 'b2',
+    category: 'Utilities',
+    createdAt: new Date('2025-02-02T00:00:00'),
+    executedAt: new Date('2025-02-02T08:00:00'),
+  },
+  {
+    id: 'a4',
+    type: 'alert',
+    status: 'executed',
+    description: 'Shopping budget exceeded',
+    reasoning: 'Spent $340 of $300 allocated for Shopping. Consider reducing spending.',
+    requiresApproval: false,
+    confidence: 100,
+    amount: 40,
+    category: 'Shopping',
+    createdAt: new Date('2025-01-28T14:20:00'),
+    executedAt: new Date('2025-01-28T14:20:00'),
+  },
+  {
+    id: 'a5',
+    type: 'budget_adjust',
+    status: 'pending',
+    description: 'Reallocate $40 from Entertainment to Shopping',
+    reasoning: 'Shopping over budget while Entertainment has surplus. Optimizing allocation.',
+    requiresApproval: true,
+    confidence: 78,
+    amount: 40,
+    category: 'Shopping',
+    createdAt: new Date('2025-02-03T11:00:00'),
+  },
+  {
+    id: 'a6',
+    type: 'negotiation',
+    status: 'pending',
+    description: 'Found better car insurance rate',
+    reasoning: 'Competitor offering similar coverage for $95/month vs current $120. Potential savings: $300/year.',
+    requiresApproval: true,
+    confidence: 88,
+    amount: 25,
+    category: 'Transportation',
+    createdAt: new Date('2025-02-03T08:00:00'),
+  },
+];
+
+// Agent Rules Configuration
+export const mockAgentRules: AgentRule[] = [
+  {
+    id: 'r1',
+    type: 'auto_pay',
+    enabled: true,
+    condition: 'Bill amount < $100 AND 3 days before due date',
+    action: 'Automatically pay bill',
+    threshold: 100,
+  },
+  {
+    id: 'r2',
+    type: 'auto_save',
+    enabled: true,
+    condition: 'Payday detected',
+    action: 'Transfer 10% of income to savings',
+    threshold: 10,
+  },
+  {
+    id: 'r3',
+    type: 'budget_adjust',
+    enabled: true,
+    condition: 'Category over budget by 15%+',
+    action: 'Suggest reallocation from surplus categories',
+    threshold: 15,
+  },
+  {
+    id: 'r4',
+    type: 'alert',
+    enabled: true,
+    condition: 'Overdraft risk detected',
+    action: 'Notify and suggest fund transfer',
+  },
+  {
+    id: 'r5',
+    type: 'alert',
+    enabled: true,
+    condition: 'Subscription unused for 30+ days',
+    action: 'Suggest cancellation',
+  },
+];
 
 // Helper function to get spending by date range
 export function getSpendingByDateRange(startDate: Date, endDate: Date): Transaction[] {

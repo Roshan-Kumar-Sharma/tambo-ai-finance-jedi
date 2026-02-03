@@ -56,3 +56,30 @@ export interface FinancialSummary {
   savingsRate: number;
   topSpendingCategory: string;
 }
+
+export interface AgentAction {
+  id: string;
+  type: 'payment' | 'transfer' | 'budget_adjust' | 'alert' | 'subscription_cancel' | 'negotiation';
+  status: 'pending' | 'approved' | 'executed' | 'rejected';
+  description: string;
+  reasoning: string;
+  requiresApproval: boolean;
+  confidence: number;
+  amount?: number;
+  category?: string;
+  targetAccount?: string;
+  sourceAccount?: string;
+  billId?: string;
+  createdAt: Date;
+  executedAt?: Date;
+}
+
+export interface AgentRule {
+  id: string;
+  type: 'auto_pay' | 'auto_save' | 'budget_adjust' | 'alert';
+  enabled: boolean;
+  condition: string;
+  action: string;
+  threshold?: number;
+  category?: string;
+}

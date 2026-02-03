@@ -66,6 +66,19 @@
   40% { transform: scale(1); }
 }
 
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.animate-progress {
+  animation: progress 5s linear forwards;
+}
+
 /* ================================
    SCROLLBAR STYLING
    ================================ */
@@ -107,4 +120,48 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* ================================
+   SLIDER CUSTOM STYLING (for AgentSettings)
+   ================================ */
+
+input[type="range"].slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"].slider::-webkit-slider-track {
+  background: rgb(51, 65, 85);
+  height: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+input[type="range"].slider::-moz-range-track {
+  background: rgb(51, 65, 85);
+  height: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+input[type="range"].slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -4px;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+input[type="range"].slider::-moz-range-thumb {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }

@@ -1,9 +1,9 @@
-// components/chat/ChatInterface.tsx - Updated with R2-D2 Agent Navigation
+// components/chat/ChatInterface.tsx - Updated with Voice Banking Navigation
 'use client';
 
 import React from 'react';
 import { useTamboThread, useTamboThreadInput } from '@tambo-ai/react';
-import { Send, Sparkles, Home, Menu, X, Bot } from 'lucide-react';
+import { Send, Sparkles, Home, Menu, X, Bot, Volume2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function ChatInterface() {
@@ -13,7 +13,6 @@ export default function ChatInterface() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const router = useRouter();
 
-  // Auto-scroll to bottom when new messages arrive
   React.useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [thread.messages]);
@@ -34,11 +33,9 @@ export default function ChatInterface() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex flex-col">
-      {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-blue-500/20">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                 <Sparkles className="w-6 h-6 text-white" />
@@ -51,7 +48,6 @@ export default function ChatInterface() {
               </div>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-4">
               <button
                 onClick={() => router.push('/')}
@@ -67,6 +63,13 @@ export default function ChatInterface() {
                 <Bot className="w-4 h-4 text-blue-400 group-hover:text-blue-300" />
                 <span>R2-D2 Agent</span>
               </button>
+              <button
+                onClick={() => router.push('/voice')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors group"
+              >
+                <Volume2 className="w-4 h-4 text-green-400 group-hover:text-green-300" />
+                <span>Voice Banking</span>
+              </button>
               <a
                 href="https://github.com/tambo-ai/tambo"
                 target="_blank"
@@ -77,7 +80,6 @@ export default function ChatInterface() {
               </a>
             </nav>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden p-2 rounded-lg hover:bg-slate-800/50 text-gray-300"
@@ -86,7 +88,6 @@ export default function ChatInterface() {
             </button>
           </div>
 
-          {/* Mobile Menu */}
           {menuOpen && (
             <div className="md:hidden mt-4 pb-4 border-t border-slate-700/50 pt-4">
               <button
@@ -109,6 +110,16 @@ export default function ChatInterface() {
                 <Bot className="w-4 h-4 text-blue-400" />
                 <span>R2-D2 Agent</span>
               </button>
+              <button
+                onClick={() => {
+                  router.push('/voice');
+                  setMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors w-full mb-2"
+              >
+                <Volume2 className="w-4 h-4 text-green-400" />
+                <span>Voice Banking</span>
+              </button>
               <a
                 href="https://github.com/tambo-ai/tambo"
                 target="_blank"
@@ -122,10 +133,8 @@ export default function ChatInterface() {
         </div>
       </header>
 
-      {/* Messages Area */}
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-          {/* Welcome Message */}
           {thread.messages.length === 0 && (
             <div className="text-center py-12">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -138,7 +147,6 @@ export default function ChatInterface() {
                 May the financial force be with you. Ask me anything about your finances!
               </p>
               
-              {/* Suggestion Pills */}
               <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
                 {[
                   'Show me my spending breakdown 📊',
@@ -158,7 +166,6 @@ export default function ChatInterface() {
             </div>
           )}
 
-          {/* Messages */}
           {thread.messages.map((message) => (
             <div
               key={message.id}
@@ -171,7 +178,6 @@ export default function ChatInterface() {
                     : 'bg-slate-900/50 backdrop-blur-sm border border-slate-700/50'
                 } rounded-2xl px-5 py-3 shadow-sm`}
               >
-                {/* Text Content */}
                 {Array.isArray(message.content) ? (
                   message.content.map((part, i) =>
                     part.type === 'text' ? (
@@ -186,7 +192,6 @@ export default function ChatInterface() {
                   </p>
                 )}
 
-                {/* Rendered Component */}
                 {message.renderedComponent && (
                   <div className="mt-3">
                     {message.renderedComponent}
@@ -196,7 +201,6 @@ export default function ChatInterface() {
             </div>
           ))}
 
-          {/* Loading Indicator */}
           {isPending && (
             <div className="flex justify-start">
               <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl px-5 py-3 shadow-sm">
@@ -216,7 +220,6 @@ export default function ChatInterface() {
         </div>
       </div>
 
-      {/* Input Area */}
       <div className="border-t border-blue-500/20 bg-slate-900/50 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <form onSubmit={handleSubmit} className="flex items-end space-x-3">

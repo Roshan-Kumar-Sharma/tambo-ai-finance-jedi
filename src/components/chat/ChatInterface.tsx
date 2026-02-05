@@ -1,9 +1,9 @@
-// components/chat/ChatInterface.tsx - Updated with Voice Banking Navigation
+// components/chat/ChatInterface.tsx - Updated with Vision Navigation
 'use client';
 
 import React from 'react';
 import { useTamboThread, useTamboThreadInput } from '@tambo-ai/react';
-import { Send, Sparkles, Home, Menu, X, Bot, Volume2 } from 'lucide-react';
+import { Send, Sparkles, Home, Menu, X, Bot, Volume2, Eye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function ChatInterface() {
@@ -61,14 +61,21 @@ export default function ChatInterface() {
                 className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors group"
               >
                 <Bot className="w-4 h-4 text-blue-400 group-hover:text-blue-300" />
-                <span>R2-D2 Agent</span>
+                <span>R2-D2</span>
               </button>
               <button
                 onClick={() => router.push('/voice')}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors group"
               >
                 <Volume2 className="w-4 h-4 text-green-400 group-hover:text-green-300" />
-                <span>Voice Banking</span>
+                <span>Yoda</span>
+              </button>
+              <button
+                onClick={() => router.push('/vision')}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors group"
+              >
+                <Eye className="w-4 h-4 text-purple-400 group-hover:text-purple-300" />
+                <span>Vision</span>
               </button>
               <a
                 href="https://github.com/tambo-ai/tambo"
@@ -91,34 +98,32 @@ export default function ChatInterface() {
           {menuOpen && (
             <div className="md:hidden mt-4 pb-4 border-t border-slate-700/50 pt-4">
               <button
-                onClick={() => {
-                  router.push('/');
-                  setMenuOpen(false);
-                }}
+                onClick={() => { router.push('/'); setMenuOpen(false); }}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors w-full mb-2"
               >
                 <Home className="w-4 h-4" />
                 <span>Home</span>
               </button>
               <button
-                onClick={() => {
-                  router.push('/agent');
-                  setMenuOpen(false);
-                }}
+                onClick={() => { router.push('/agent'); setMenuOpen(false); }}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors w-full mb-2"
               >
                 <Bot className="w-4 h-4 text-blue-400" />
                 <span>R2-D2 Agent</span>
               </button>
               <button
-                onClick={() => {
-                  router.push('/voice');
-                  setMenuOpen(false);
-                }}
+                onClick={() => { router.push('/voice'); setMenuOpen(false); }}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors w-full mb-2"
               >
                 <Volume2 className="w-4 h-4 text-green-400" />
                 <span>Voice Banking</span>
+              </button>
+              <button
+                onClick={() => { router.push('/vision'); setMenuOpen(false); }}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors w-full mb-2"
+              >
+                <Eye className="w-4 h-4 text-purple-400" />
+                <span>Force Vision</span>
               </button>
               <a
                 href="https://github.com/tambo-ai/tambo"
@@ -247,12 +252,7 @@ export default function ChatInterface() {
           
           <p className="text-xs text-gray-500 text-center mt-3">
             Powered by{' '}
-            <a
-              href="https://tambo.co"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300"
-            >
+            <a href="https://tambo.co" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
               Tambo Generative UI
             </a>
           </p>

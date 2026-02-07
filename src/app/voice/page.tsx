@@ -1,58 +1,17 @@
-// app/voice/page.tsx
+// app/voice/page.tsx - Updated with Unified Navigation
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
-import { Home, Bot, MessageCircle, Volume2, Sparkles, TrendingUp } from 'lucide-react';
+import UnifiedNav from '@/components/navigation/UnifiedNav';
+import Breadcrumb from '@/components/navigation/Breadcrumb';
+import { Sparkles, Volume2, TrendingUp } from 'lucide-react';
 import YodaVoiceInterface from '@/components/voice/YodaVoiceInterface';
 
 export default function VoiceBankingPage() {
-  const router = useRouter();
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-green-950 to-slate-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-green-500/20">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-                <Volume2 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 text-transparent bg-clip-text">
-                  Yoda Voice Banking
-                </h1>
-                <p className="text-xs text-gray-400">Speak to the Force, you may</p>
-              </div>
-            </div>
-
-            <nav className="flex items-center gap-4">
-              <button
-                onClick={() => router.push('/')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
-              >
-                <Home className="w-4 h-4" />
-                <span className="hidden md:inline">Home</span>
-              </button>
-              <button
-                onClick={() => router.push('/chat')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span className="hidden md:inline">Chat</span>
-              </button>
-              <button
-                onClick={() => router.push('/agent')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
-              >
-                <Bot className="w-4 h-4" />
-                <span className="hidden md:inline">Agent</span>
-              </button>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <UnifiedNav />
+      <Breadcrumb />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8 max-w-5xl">
@@ -65,7 +24,7 @@ export default function VoiceBankingPage() {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 text-transparent bg-clip-text">
-            Speak to Master Yoda
+            Yoda Voice Banking
           </h2>
           
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
@@ -128,28 +87,6 @@ export default function VoiceBankingPage() {
             <p className="text-gray-300 text-sm leading-relaxed">
               Hear Yoda speak back. Get insights, confirmations, and wisdom 
               through voice synthesis in Yoda's unique speech pattern.
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl p-6">
-            <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-              <Bot className="w-5 h-5 text-purple-400" />
-              Action Commands
-            </h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              "Pay my internet bill" or "Set a savings challenge" - execute 
-              financial actions hands-free with voice confirmation.
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/20 rounded-xl p-6">
-            <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-yellow-400" />
-              Context Awareness
-            </h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Yoda remembers your conversation. Ask follow-up questions naturally 
-              without repeating context.
             </p>
           </div>
         </div>

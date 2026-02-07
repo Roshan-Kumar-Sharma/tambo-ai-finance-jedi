@@ -1,69 +1,22 @@
-// app/vision/page.tsx
+// app/vision/page.tsx - Updated with Unified Navigation
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Home, Bot, Volume2, MessageCircle, Sparkles, Eye, Calculator } from 'lucide-react';
+import UnifiedNav from '@/components/navigation/UnifiedNav';
+import Breadcrumb from '@/components/navigation/Breadcrumb';
+import { Sparkles, Eye, Calculator } from 'lucide-react';
 import ForceVisionDashboard from '@/components/vision/ForceVisionDashboard';
 import WhatIfSimulator from '@/components/vision/WhatIfSimulator';
 
 type TabType = 'forecast' | 'simulator';
 
 export default function ForceVisionPage() {
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabType>('forecast');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/80 border-b border-purple-500/20">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
-                <Eye className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">
-                  Force Vision
-                </h1>
-                <p className="text-xs text-gray-400">Predictive Financial Analytics</p>
-              </div>
-            </div>
-
-            <nav className="flex items-center gap-4">
-              <button
-                onClick={() => router.push('/')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
-              >
-                <Home className="w-4 h-4" />
-                <span className="hidden md:inline">Home</span>
-              </button>
-              <button
-                onClick={() => router.push('/chat')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span className="hidden md:inline">Chat</span>
-              </button>
-              <button
-                onClick={() => router.push('/agent')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
-              >
-                <Bot className="w-4 h-4" />
-                <span className="hidden md:inline">Agent</span>
-              </button>
-              <button
-                onClick={() => router.push('/voice')}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-slate-800/50 text-gray-300 hover:text-white transition-colors"
-              >
-                <Volume2 className="w-4 h-4" />
-                <span className="hidden md:inline">Voice</span>
-              </button>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <UnifiedNav />
+      <Breadcrumb />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -76,7 +29,7 @@ export default function ForceVisionPage() {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 text-transparent bg-clip-text">
-            See Your Financial Future
+            Force Vision
           </h2>
           
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
@@ -136,7 +89,8 @@ export default function ForceVisionPage() {
               }`}
             >
               <Eye className="w-5 h-5" />
-              <span>Forecasts & Predictions</span>
+              <span className="hidden sm:inline">Forecasts & Predictions</span>
+              <span className="sm:hidden">Forecasts</span>
             </button>
             <button
               onClick={() => setActiveTab('simulator')}
@@ -147,7 +101,8 @@ export default function ForceVisionPage() {
               }`}
             >
               <Calculator className="w-5 h-5" />
-              <span>What-If Simulator</span>
+              <span className="hidden sm:inline">What-If Simulator</span>
+              <span className="sm:hidden">Simulator</span>
             </button>
           </div>
         </div>

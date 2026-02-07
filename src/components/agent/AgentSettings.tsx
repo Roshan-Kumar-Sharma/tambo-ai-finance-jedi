@@ -116,15 +116,15 @@ export default function AgentSettings() {
               </div>
             </div>
 
-            {/* Threshold Input */}
+            {/* Threshold Input - FIXED SLIDER */}
             {rule.threshold !== undefined && rule.enabled && (
               <div className="mt-4 pt-4 border-t border-white/10">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-3">
                   {rule.type === 'auto_pay' ? 'Maximum Amount ($)' : 
                    rule.type === 'auto_save' ? 'Savings Percentage (%)' : 
                    'Threshold (%)'}
                 </label>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   <input
                     type="range"
                     min="0"
@@ -132,11 +132,15 @@ export default function AgentSettings() {
                     step={rule.type === 'auto_pay' ? 10 : 5}
                     value={rule.threshold}
                     onChange={(e) => updateThreshold(rule.id, Number(e.target.value))}
-                    className="flex-1 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+                    className="flex-1"
                   />
                   <span className="text-white font-bold min-w-[60px] text-right">
                     {rule.type === 'auto_pay' ? '$' : ''}{rule.threshold}{rule.type !== 'auto_pay' ? '%' : ''}
                   </span>
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 mt-2">
+                  <span>0</span>
+                  <span>{rule.type === 'auto_pay' ? '$500' : '100%'}</span>
                 </div>
               </div>
             )}

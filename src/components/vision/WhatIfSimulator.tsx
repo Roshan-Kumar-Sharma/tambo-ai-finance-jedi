@@ -65,7 +65,7 @@ export default function WhatIfSimulator() {
         <div className="space-y-6">
           {/* Income Change */}
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <label className="text-gray-300 font-medium flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-green-400" />
                 Income Change
@@ -81,9 +81,8 @@ export default function WhatIfSimulator() {
               step="50"
               value={incomeChange}
               onChange={(e) => setIncomeChange(Number(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
+            <div className="flex justify-between text-xs text-gray-500 mt-2">
               <span>-$1000</span>
               <span>$0</span>
               <span>+$1000</span>
@@ -92,7 +91,7 @@ export default function WhatIfSimulator() {
 
           {/* Overall Expense Change */}
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <label className="text-gray-300 font-medium flex items-center gap-2">
                 <TrendingDown className="w-4 h-4 text-red-400" />
                 Overall Expenses
@@ -108,9 +107,8 @@ export default function WhatIfSimulator() {
               step="25"
               value={expenseChange}
               onChange={(e) => setExpenseChange(Number(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
+            <div className="flex justify-between text-xs text-gray-500 mt-2">
               <span>-$500</span>
               <span>$0</span>
               <span>+$500</span>
@@ -119,7 +117,7 @@ export default function WhatIfSimulator() {
 
           {/* Dining Change */}
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <label className="text-gray-300 font-medium">Dining Out</label>
               <span className={`font-bold ${diningChange <= 0 ? 'text-green-400' : 'text-red-400'}`}>
                 {diningChange >= 0 ? '+' : ''}${diningChange}
@@ -132,16 +130,15 @@ export default function WhatIfSimulator() {
               step="10"
               value={diningChange}
               onChange={(e) => setDiningChange(Number(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 mt-2">
               {Math.abs(diningChange / 3.2).toFixed(0)}% change in food spending
             </p>
           </div>
 
           {/* Shopping Change */}
           <div>
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-3">
               <label className="text-gray-300 font-medium">Shopping</label>
               <span className={`font-bold ${shoppingChange <= 0 ? 'text-green-400' : 'text-red-400'}`}>
                 {shoppingChange >= 0 ? '+' : ''}${shoppingChange}
@@ -154,9 +151,8 @@ export default function WhatIfSimulator() {
               step="10"
               value={shoppingChange}
               onChange={(e) => setShoppingChange(Number(e.target.value))}
-              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-gray-500 mt-2">
               {Math.abs(shoppingChange / 3.4).toFixed(0)}% change in shopping
             </p>
           </div>
@@ -181,7 +177,7 @@ export default function WhatIfSimulator() {
         </div>
       </div>
 
-      {/* Results */}
+      {/* Results - keeping existing implementation */}
       {isSimulating && (
         <div className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-xl p-6 animate-in fade-in duration-500">
           <div className="flex items-center gap-2 mb-4">

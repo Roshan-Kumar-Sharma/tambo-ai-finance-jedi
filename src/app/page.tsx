@@ -1,14 +1,16 @@
-// app/page.tsx - Improved Home Page
+// app/page.tsx - Updated with Quick Start Guide
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Sparkles, TrendingUp, Target, Shield, Zap, ArrowRight, MessageCircle, Bot, Volume2, Eye, Check } from 'lucide-react';
+import { Sparkles, TrendingUp, Target, Shield, Zap, ArrowRight, MessageCircle, Bot, Volume2, Eye, Check, BookOpen } from 'lucide-react';
 import UnifiedNav from '@/components/navigation/UnifiedNav';
+import QuickStartGuide from '@/components/onboarding/QuickStartGuide';
 
 export default function Home() {
   const router = useRouter();
   const [isHovering, setIsHovering] = useState(false);
+  const [showQuickStart, setShowQuickStart] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 overflow-hidden relative">
@@ -29,6 +31,9 @@ export default function Home() {
       </div>
 
       <UnifiedNav />
+
+      {/* Quick Start Guide Modal */}
+      <QuickStartGuide isOpen={showQuickStart} onClose={() => setShowQuickStart(false)} />
 
       {/* Main Content */}
       <div className="relative z-10">
@@ -71,11 +76,19 @@ export default function Home() {
                 </span>
               </button>
 
+              {/* <button
+                onClick={() => setShowQuickStart(true)}
+                className="px-8 py-4 border-2 border-blue-500/50 rounded-xl font-semibold text-blue-300 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300 flex items-center gap-2"
+              >
+                <BookOpen className="w-5 h-5" />
+                Quick Start Guide
+              </button> */}
+
               <button
                 onClick={() => router.push('/docs')}
                 className="px-8 py-4 border-2 border-blue-500/50 rounded-xl font-semibold text-blue-300 hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-300"
               >
-                View Documentation
+                Documentation
               </button>
             </div>
           </div>

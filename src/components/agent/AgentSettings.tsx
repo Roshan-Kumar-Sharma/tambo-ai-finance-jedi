@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Settings, Toggle, DollarSign, Percent, Calendar, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
+import { Settings, DollarSign, Percent, Calendar, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
 import { AgentRule } from '@/types/finance';
 import { mockAgentRules } from '@/lib/data/mockData';
 

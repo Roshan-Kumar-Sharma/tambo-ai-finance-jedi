@@ -1,11 +1,26 @@
 // app/voice/page.tsx - Updated with Unified Navigation
 'use client';
 
-import React from 'react';
-import UnifiedNav from '@/components/navigation/UnifiedNav';
 import Breadcrumb from '@/components/navigation/Breadcrumb';
-import { Sparkles, Volume2, TrendingUp } from 'lucide-react';
-import YodaVoiceInterface from '@/components/voice/YodaVoiceInterface';
+import UnifiedNav from '@/components/navigation/UnifiedNav';
+import { Loader2, Sparkles, TrendingUp, Volume2 } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+// Dynamic import to prevent SSR issues with Web Workers used by @tambo-ai/react
+const YodaVoiceInterface = dynamic(
+  () => import('@/components/voice/YodaVoiceInterface'),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-6 flex items-center justify-center min-h-[400px]">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-12 h-12 text-blue-400 animate-spin" />
+          <p className="text-gray-300 text-sm">Loading voice interface...</p>
+        </div>
+      </div>
+    )
+  }
+);
 
 export default function VoiceBankingPage() {
   return (

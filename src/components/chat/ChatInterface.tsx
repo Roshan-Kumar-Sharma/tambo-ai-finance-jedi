@@ -1,17 +1,22 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import Breadcrumb from '@/components/navigation/Breadcrumb';
+import UnifiedNav from '@/components/navigation/UnifiedNav';
+import { extractTextContent, parseMarkdown } from '@/lib/utils/markdownRenderer';
 import { useTamboThread, useTamboThreadInput } from '@tambo-ai/react';
 import { Send, Sparkles } from 'lucide-react';
-import { parseMarkdown, extractTextContent } from '@/lib/utils/markdownRenderer';
-import UnifiedNav from '@/components/navigation/UnifiedNav';
-import Breadcrumb from '@/components/navigation/Breadcrumb';
+import React, { useEffect, useRef } from 'react';
 
 export default function ChatInterface() {
-  const { thread } = useTamboThread();
+  const { thread, startNewThread } = useTamboThread();
   const { value, setValue, submit, isPending } = useTamboThreadInput();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  // Start a new thread when the component mounts to clear old queries/responses
+  useEffect(() => {
+    startNewThread();
+  }, []);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
